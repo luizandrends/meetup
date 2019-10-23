@@ -18,7 +18,7 @@ export function* signIn({ payload }) {
     const { token, user } = response.data;
 
     if (!user.provider) {
-      toast.error('Somente provedores tem aceso');
+      toast.error('Somente provedores tem acesso ao servico web');
       yield put(signInFailure());
       return;
     }
