@@ -32,6 +32,10 @@ target 'meetupmobile' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'meetupmobileTests' do
     inherit! :search_paths
     # Pods for testing
