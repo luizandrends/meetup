@@ -16,7 +16,7 @@ import {
   SubmitButton,
   LogOutButton,
 } from './styles';
- 
+
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
@@ -57,8 +57,6 @@ export default function Profile() {
   return (
     <Background>
       <Container>
-        <Title>Meu Perfil</Title>
-
         <Form>
           <FormInput
             icon="person-outline"
