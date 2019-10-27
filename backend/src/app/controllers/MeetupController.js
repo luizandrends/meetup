@@ -3,6 +3,7 @@ import { parseISO, isBefore, subHours, startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 
 import Meetup from '../models/Meetup';
+import User from '../models/User';
 import File from '../models/File';
 
 class MeetupController {
@@ -12,11 +13,22 @@ class MeetupController {
 
     const meetups = await Meetup.findAll({
       where: {
-        user_id: req.userId,
         date: {
           [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
         },
       },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name'],
+        },
+        {
+          model: File,
+          as: 'file',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
       order: ['date'],
     });
 

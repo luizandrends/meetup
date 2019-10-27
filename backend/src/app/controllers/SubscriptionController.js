@@ -17,6 +17,7 @@ class SubscriptionController {
           attributes: ['id', 'name'],
         },
       ],
+      where: { user_id: req.user_id },
     });
 
     return res.json(subscription);
