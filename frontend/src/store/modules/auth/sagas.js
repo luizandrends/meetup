@@ -20,7 +20,6 @@ export function* signIn({ payload }) {
     if (!user.provider) {
       toast.error('Somente provedores tem acesso ao servico web');
       yield put(signInFailure());
-      return;
     }
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
@@ -29,7 +28,9 @@ export function* signIn({ payload }) {
 
     history.push('/dashboard');
   } catch (err) {
-    toast.error('Falha na autenticacao, verifique os seus dados');
+    toast.error(
+      'Nao foi possivel efetuar o seu login, se voce nao for provedor baixe o nosso app'
+    );
     yield put(signInFailure());
   }
 }

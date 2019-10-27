@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { MdEdit, MdDeleteForever, MdToday, MdLocationOn } from 'react-icons/md';
-
 import { toast } from 'react-toastify';
+
 import { Container, Info } from './styles';
 
-import banner from '../../assets/default-banner.png';
+import banner from '../../../assets/default-banner.png';
 
-import history from '../../services/history';
-import api from '../../services/api';
+import history from '../../../services/history';
+import api from '../../../services/api';
 
 export default function DetailMeetup({ match }) {
   const { id } = match.params;
@@ -40,7 +40,7 @@ export default function DetailMeetup({ match }) {
   async function handleDelete() {
     try {
       await api.delete(`meetups/${id}`);
-
+      toast.success('Seu meetup foi deletado com sucesso');
       history.push('/dashboard');
     } catch (err) {
       toast.error('Nao foi possivel cancelar o seu meetup');

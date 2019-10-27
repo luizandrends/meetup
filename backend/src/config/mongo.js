@@ -1,3 +1,3 @@
 export default {
-  url: 'mongodb://localhost:27017/mongomeetapp',
+  url: process.env.MONGO_URL,
 };

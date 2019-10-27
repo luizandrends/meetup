@@ -6,10 +6,10 @@ import { MdAddCircleOutline } from 'react-icons/md';
 import { Input, Textarea, Form } from '@rocketseat/unform';
 import { Container } from './styles';
 
-import { createMeetupRequest } from '../../store/modules/meetup/actions';
+import { createMeetupRequest } from '../../../store/modules/meetup/actions';
 
-import BannerInput from './BannerInput';
-import DateTimePicker from '../../components/DateTimePicker';
+import BannerInput from '../BannerInput';
+import DateTimePicker from '../../../components/DateTimePicker';
 
 const schema = Yup.object().shape({
   file_id: Yup.number().required('Banner Obrigatorio'),

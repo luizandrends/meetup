@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 import { Input, Textarea, Form } from '@rocketseat/unform';
 import { Container } from './styles';
 
-import BannerInput from '../NewMeetup/BannerInput';
-import DateTimePicker from '../../components/DateTimePicker';
+import BannerInput from '../BannerInput';
+import DateTimePicker from '../../../components/DateTimePicker';
 
-import api from '../../services/api';
-import history from '../../services/history';
+import api from '../../../services/api';
+import history from '../../../services/history';
 
 export default function EditMeetup({ match }) {
   const { id } = match.params;
