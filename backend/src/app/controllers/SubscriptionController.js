@@ -1,4 +1,5 @@
 import User from '../models/User';
+import File from '../models/File';
 import Meetup from '../models/Meetup';
 import Notification from '../schema/Notification';
 import Subscription from '../models/Subscription';
@@ -7,17 +8,26 @@ import SubscribeMail from '../jobs/SubscribeMail';
 
 class SubscriptionController {
   async index(req, res) {
-    const subscription = await Meetup.findAll({
-      order: ['date'],
-      attributes: ['id', 'title', 'description'],
+    const subscription = await Subscription.findAll({
       include: [
         {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name'],
+          model: Meetup,
+          as: 'meetup',
+          attributes: ['id', 'title', 'description', 'date', 'location'],
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['id', 'name'],
+            },
+            {
+              model: File,
+              as: 'file',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
         },
       ],
-      where: { user_id: req.user_id },
     });
 
     return res.json(subscription);
@@ -97,6 +107,28 @@ class SubscriptionController {
     });
 
     return res.json(subscription);
+  }
+
+  async delete(req, res) {
+    const subscription = await Subscription.findByPk(req.params.id);
+
+    if (subscription.user_id !== req.userId) {
+      return res
+        .status(401)
+        .json({ error: 'Only the User can delete this Subscription.' });
+    }
+
+    const meetup = await Meetup.findByPk(subscription.meetup_id);
+
+    if (meetup.past) {
+      return res
+        .status(400)
+        .json({ error: "You can't delete past Meeting Subscriptions!" });
+    }
+
+    await subscription.destroy();
+
+    return res.send();
   }
 }
 
